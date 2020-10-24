@@ -14,7 +14,7 @@ public class Client {
 
 	Socket connection;
 
-	ObjectOutputStream os;
+	public static ObjectOutputStream os;
 	ObjectInputStream is;
 
 	public Client(String ip, int port) {

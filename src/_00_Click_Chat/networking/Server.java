@@ -11,13 +11,15 @@ import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
+import _02_Chat_Application.ChatAppServer;
+
 public class Server {
 	private int port;
 
 	private ServerSocket server;
 	private Socket connection;
 
-	ObjectOutputStream os;
+	public static ObjectOutputStream os;
 	ObjectInputStream is;
 
 	public Server(int port) {
@@ -65,7 +67,7 @@ public class Server {
 	public void sendClick() {
 		try {
 			if (os != null) {
-				os.writeObject("CLICK SENT FROM SERVER");
+				os.writeObject("Click sent from server");
 				os.flush();
 			}
 		} catch (IOException e) {

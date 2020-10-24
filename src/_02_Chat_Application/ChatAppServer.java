@@ -21,19 +21,18 @@ import _00_Click_Chat.networking.Server;
 public class ChatAppServer extends JFrame {
 	JButton button = new JButton("Send");
 	JPanel panel = new JPanel();
-	JLabel label = new JLabel("Messages:");
+	public static JLabel label = new JLabel("Messages:");
+	JLabel labelIN = new JLabel("Messages: ");
 	ArrayList<String> messages = new ArrayList<String>();
 	JTextField field = new JTextField("");
 	Server server;
 	Client client;
 	String empty = "Messages: ";
-
 	public static void main(String[] args) {
 		new ChatAppServer();
 	}
 
 	public ChatAppServer() {
-
 		int response = JOptionPane.showConfirmDialog(null, "Would you like to host a connection?", "Buttons!",
 				JOptionPane.YES_NO_OPTION);
 		if (response == JOptionPane.YES_OPTION) {
@@ -42,19 +41,23 @@ public class ChatAppServer extends JFrame {
 			JOptionPane.showMessageDialog(null,
 					"Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
 			button.addActionListener((e) -> {
+				System.out.println("clciked");
 				messages.add(field.getText());
 				String t = "";
-				field.setText(t);
-			});
+				field.setText(t);			
 			for (int i = 0; i < messages.size(); i++) {
 				empty+="Out: " + messages.get(i) + " ";
 			}
 			label.setText(empty);
+			empty = "Messages: ";
+			
+			});
 			panel.setLayout((LayoutManager) new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 			add(panel);
 			panel.add(Box.createRigidArea(new Dimension(0,5)));
 			panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 			panel.add(label);
+			panel.add(labelIN);
 			panel.add(field);
 			panel.add(button);
 			setVisible(true);
@@ -62,7 +65,6 @@ public class ChatAppServer extends JFrame {
 			pack();
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			server.start();
-
 		} else {
 			setTitle("CLIENT");
 			String ipStr = JOptionPane.showInputDialog("Enter the IP Address");
@@ -73,16 +75,18 @@ public class ChatAppServer extends JFrame {
 				messages.add(field.getText());
 				String t = "";
 				field.setText(t);
-			});
 			for (int i = 0; i < messages.size(); i++) {
-				empty+=messages.get(i);
+				empty+=messages.get(i) + " ";
 			}
 			label.setText(empty);
+			empty = "Messages: ";
+			});
 			panel.setLayout((LayoutManager) new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 			add(panel);
 			panel.add(Box.createRigidArea(new Dimension(0,5)));
 			panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 			panel.add(label);
+			panel.add(labelIN);
 			panel.add(field);
 			panel.add(button);
 			setVisible(true);
