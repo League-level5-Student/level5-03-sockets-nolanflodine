@@ -6,20 +6,24 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Client {
+import _02_Chat_Application.ChatAppServer;
+
+public class Client extends ChatAppServer{
 	private String ip;
 	private int port;
-
+	JLabel label;
 	Socket connection;
 
 	public static ObjectOutputStream os;
 	ObjectInputStream is;
 
-	public Client(String ip, int port) {
+	public Client(String ip, int port, JLabel label) {
 		this.ip = ip;
 		this.port = port;
+		this.label = label;
 	}
 
 	public void start(){
@@ -40,7 +44,7 @@ public class Client {
 		
 		while (connection.isConnected()) {
 			try {
-				JOptionPane.showMessageDialog(null, is.readObject());
+				label.setText((String) is.readObject());
 				System.out.println(is.readObject());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

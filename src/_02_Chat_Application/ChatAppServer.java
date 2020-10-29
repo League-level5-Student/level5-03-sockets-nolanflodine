@@ -21,10 +21,9 @@ import _00_Click_Chat.networking.Server;
 public class ChatAppServer extends JFrame {
 	JButton button = new JButton("Send");
 	JPanel panel = new JPanel();
-	public static JLabel label = new JLabel("Messages:");
-	JLabel labelIN = new JLabel("Messages: ");
-	ArrayList<String> messages = new ArrayList<String>();
-	JTextField field = new JTextField("");
+	public JLabel label = new JLabel("Messages:");
+	 ArrayList<String> messages = new ArrayList<String>();
+	public  JTextField field = new JTextField("");
 	Server server;
 	Client client;
 	String empty = "Messages: ";
@@ -42,6 +41,7 @@ public class ChatAppServer extends JFrame {
 					"Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
 			button.addActionListener((e) -> {
 				System.out.println("clciked");
+				Server.sendMessage();
 				messages.add(field.getText());
 				String t = "";
 				field.setText(t);			
@@ -57,7 +57,6 @@ public class ChatAppServer extends JFrame {
 			panel.add(Box.createRigidArea(new Dimension(0,5)));
 			panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 			panel.add(label);
-			panel.add(labelIN);
 			panel.add(field);
 			panel.add(button);
 			setVisible(true);
@@ -70,9 +69,11 @@ public class ChatAppServer extends JFrame {
 			String ipStr = JOptionPane.showInputDialog("Enter the IP Address");
 			String prtStr = JOptionPane.showInputDialog("Enter the port number");
 			int port = Integer.parseInt(prtStr);
-			client = new Client(ipStr, port);
+			client = new Client(ipStr, port, label);
+			System.out.println("test");
 			button.addActionListener((e) -> {
 				messages.add(field.getText());
+				Server.sendMessage();
 				String t = "";
 				field.setText(t);
 			for (int i = 0; i < messages.size(); i++) {
@@ -86,7 +87,6 @@ public class ChatAppServer extends JFrame {
 			panel.add(Box.createRigidArea(new Dimension(0,5)));
 			panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 			panel.add(label);
-			panel.add(labelIN);
 			panel.add(field);
 			panel.add(button);
 			setVisible(true);

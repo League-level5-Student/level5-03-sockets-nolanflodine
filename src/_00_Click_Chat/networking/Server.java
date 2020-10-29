@@ -64,6 +64,15 @@ public class Server {
 		return port;
 	}
 
+	public static void sendMessage() {
+		try {
+			if(os!=null) {
+				os.writeObject(ChatAppServer.field.getText());
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void sendClick() {
 		try {
 			if (os != null) {
